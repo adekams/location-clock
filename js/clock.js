@@ -41,7 +41,7 @@ const greeting = hour => {
         greeting.innerText = 'Morning';
         icon.className = "fas fa-sun";
     }
-    else if (hour >12 && hour < 18) {
+    else if (hour >12 && hour < 17) {
         greeting.innerText = 'Afternoon';
         background.classList.add('bg-day')
         icon.className = "fas fa-sun";
