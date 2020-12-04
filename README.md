@@ -3,5 +3,5 @@ A simple clock that tells the current time, location and timezone based on the u
 
 Made use of [quotes](https://type.fit/api/quotes) api
 
-## link
+## live
 [Location-clock](https://adekams.github.io/location-clock/)
