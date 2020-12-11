@@ -91,11 +91,11 @@ const dayAndWeek = () => {
     let difference = (now - start) + ((start.getTimezoneOffset()) * 60 * 1000)
     let day = 1000 * 60 * 60 * 24
     let DoY = Math.floor(difference / day)
-    console.log(DoY, difference)
+    //console.log(DoY, difference)
 
     WeekNumber = Math.ceil(DoY / 7)
     document.querySelector('#year-day').innerText = DoY
-    document.querySelector('#week-day').innerText = now.getDay() + 1
+    document.querySelector('#week-day').innerText = now.getDay()
     document.querySelector('#week-num').innerText = WeekNumber
 
 }
