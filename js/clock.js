@@ -23,7 +23,6 @@ const getQuotes = () => {
         author.innerHTML = owner
     });   
 }
-
 /*quote section ends*/
 
 
@@ -50,11 +49,10 @@ const greeting = hour => {
         greeting.innerText = 'Evening'
         background.classList.remove('bg-day')
         background.classList.add('bg-night')
-        icon.className = "fas fa-moon";
-    }
+        icon.className = "fas fa-moon";    }
 }
 
-// const newClock() {
+// get hours and minutes
 const getTime = () => {
     now = new Date()
     hour = now.getHours()
@@ -72,37 +70,23 @@ const getTime = () => {
 /* time section ends */
 
 
-const getInfo = () => {
-    let timezone = document.querySelector('#timezone')
-    //get the timezone
-    let zone = Intl.DateTimeFormat().resolvedOptions().timeZone
-    
-    // get timezone code
-    timezone.textContent = zone
-    //get locale
-    let locale = Intl.DateTimeFormat().resolvedOptions().locale
-    document.querySelector('#code').innerText = new Date().toLocaleString(locale, {timeZoneName: 'short'}).split(' ').pop()          
+//get timezone and code using API
+async function getInfo () {
+    let url = "https://www.worldtimeapi.org/api/ip";
+    let resp = await fetch(url)
+    let data = await resp.json()
+    document.querySelector('#timezone').textContent = data.timezone
+    document.querySelector('#code').innerText = data.abbreviation
+
+
+    document.querySelector('#week-day').innerText = data.day_of_week
+    document.querySelector('#year-day').innerText = data.day_of_year
+    document.querySelector('#week-num').innerText = data.week_number
 }
 
 
-
-const dayAndWeek = () => {
-    let start = new Date(now.getFullYear(), 0, 0)
-    let difference = (now - start) + ((start.getTimezoneOffset()) * 60 * 1000)
-    let day = 1000 * 60 * 60 * 24
-    let DoY = Math.floor(difference / day)
-    //console.log(DoY, difference)
-
-    WeekNumber = Math.ceil(DoY / 7)
-    document.querySelector('#year-day').innerText = DoY
-    document.querySelector('#week-day').innerText = now.getDay()
-    document.querySelector('#week-num').innerText = WeekNumber
-
-}
-
-
-    //toggle section two
-    btn.addEventListener('click', () => {
+//toggle section two
+btn.addEventListener('click', () => {
     details= document.querySelector('#details')
     arrow = document.querySelector('#arrow')
     btnText = document.querySelector('button')
@@ -115,8 +99,6 @@ const dayAndWeek = () => {
     }else{
         btnText.innerHTML = 'more'
         arrow.className = 'fas fa-chevron-circle-down'
-    
-
     }
 })
 
@@ -130,9 +112,40 @@ document.body.append(script);
 
 
 /*call all functions*/
+getInfo()
 getQuotes()
 // change quotes when sync icon is clicked 
 shuffle.addEventListener('click', getQuotes)
-getInfo()
-dayAndWeek()
+
 let clock  = setInterval(getTime, 1000)
+
+
+
+
+
+
+//get timezone and code without API
+/*const getTimeInfo = () => { 
+    //get the timezone
+    let zone = Intl.DateTimeFormat().resolvedOptions().timeZone
+    document.querySelector('#timezone').textContent = zone
+
+    //get time code from locale
+    let locale = Intl.DateTimeFormat().resolvedOptions().locale
+    document.querySelector('#code').innerText = new Date().toLocaleString(locale, {timeZoneName: 'short'}).split(' ').pop()          
+}*/
+
+// get day and week numbers without API
+/*const dayAndWeek = () => {
+    let start = new Date(now.getFullYear(), 0, 0)
+    let difference = (now - start) + ((start.getTimezoneOffset()) * 60 * 1000)
+    // let day = 1000 * 60 * 60 * 24
+    let DoY = Math.floor(difference / day)
+    //console.log(DoY, difference)
+
+    WeekNumber = Math.ceil(DoY / 7)
+    document.querySelector('#year-day').innerText = DoY
+    document.querySelector('#week-day').innerText = now.getDay()
+    document.querySelector('#week-num').innerText = WeekNumber
+
+} */
