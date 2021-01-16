@@ -75,9 +75,10 @@ async function getInfo () {
     let url = "https://www.worldtimeapi.org/api/ip";
     let resp = await fetch(url)
     let data = await resp.json()
+    console.log(data.abbreviation)
     document.querySelector('#timezone').textContent = data.timezone
     document.querySelector('#code').innerText = data.abbreviation
-
+    
 
     document.querySelector('#week-day').innerText = data.day_of_week
     document.querySelector('#year-day').innerText = data.day_of_year
@@ -110,6 +111,18 @@ let script = document.createElement('script');
 script.src = `https://freegeoip.app/json?callback=getLocation`;
 document.body.append(script);
 
+// const getTimeInfo = ({timezone, abbreviation, day_of_week, day_of_year, week_number}) => {
+//     document.querySelector('#timezone').textContent = (`${timezone}`);
+//     document.querySelector('#code').innerText =`${abbreviation}`;
+    
+
+//     document.querySelector('#week-day').innerText =`${day_of_week}`;
+//     document.querySelector('#year-day').innerText = `${day_of_year}`;
+//     document.querySelector('#week-num').innerText = `${week_number}`;
+// }
+// let newScript = document.createElement('script');
+// newScript.src = `https://www.worldtimeapi.org/api/ip`;
+// document.body.append(newScript);
 
 /*call all functions*/
 getInfo()
